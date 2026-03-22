@@ -11,8 +11,11 @@ uint64_t collatzMaxValue(uint64_t num) {
         } else {
             num = 3 * num + 1;
         }
-        max_val = max(max_val, num);
+        if (num > max_val) {
+            max_val = num;
+        }
     }
+
     return max_val;
 }
 
@@ -28,7 +31,9 @@ unsigned int collatzLen(uint64_t num) {
     if (num % 2 == 0) {
         length = 1 + collatzLen(num / 2);
     } else {
-        length = 1 + collatzLen(3 * num + 1);
+
+        uint64_t next = 3 * num + 1;
+        length = 1 + collatzLen(next);
     }
 
     memo[num] = length;
