@@ -4,15 +4,16 @@
 
 uint64_t collatzMaxValue(uint64_t num) {
     uint64_t max_val = num;
+    uint64_t current = num;
 
-    while (num != 1) {
-        if (num % 2 == 0) {
-            num = num / 2;
+    while (current != 1) {
+        if (current % 2 == 0) {
+            current = current / 2;
         } else {
-            num = 3 * num + 1;
+            current = 3 * current + 1;
         }
-        if (num > max_val) {
-            max_val = num;
+        if (current > max_val) {
+            max_val = current;
         }
     }
 
@@ -20,23 +21,18 @@ uint64_t collatzMaxValue(uint64_t num) {
 }
 
 unsigned int collatzLen(uint64_t num) {
-    static unordered_map<uint64_t, unsigned int> memo;
+    unsigned int length = 1;
+    uint64_t current = num;
 
-    if (num == 1) return 1;
-
-    auto it = memo.find(num);
-    if (it != memo.end()) return it->second;
-
-    unsigned int length;
-    if (num % 2 == 0) {
-        length = 1 + collatzLen(num / 2);
-    } else {
-
-        uint64_t next = 3 * num + 1;
-        length = 1 + collatzLen(next);
+    while (current != 1) {
+        if (current % 2 == 0) {
+            current = current / 2;
+        } else {
+            current = 3 * current + 1;
+        }
+        length++;
     }
 
-    memo[num] = length;
     return length;
 }
 
